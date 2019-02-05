@@ -44,7 +44,7 @@ You will be better equipped to work through this lesson if you have experience i
 
 ## Teacher Notes
 
-*   **Time Estimate: **45 minutes
+*   **Time Estimate:** 45 minutes
 *   Adding scripts and styles to WordPress is a fairly simple process. Essentially, you will create a function that will enqueue all of your scripts and styles.
 *   When enqueuing a script or stylesheet, WordPress creates a handle and path to find your file and any dependencies it may have (like jQuery) and then you will use a hook that will insert your scripts and stylesheets.
 *   Emphasize that the student should never enqueue any scripts or styles under **'wp_head'** hook.
@@ -95,7 +95,21 @@ Default: 'all'
 
 #### Example of Enqueue Styles
 
-// Enqueue style sheet. add_action( 'wp_enqueue_scripts', 'register_styles' ); /** * Enqueue Register style sheet. */ function register_styles() { // Register Plugin style wp_register_style( 'my-plugin', plugins_url( 'my-plugin/css/plugin.css' ) ); // Enqueue Style wp_enqueue_style( 'my-plugin' ); // Register them style wp_register_style( 'data_table_css', get_template_directory_uri() . '/css/jquery.dataTables.css' ); // Enqueue Style wp_enqueue_style( 'data_table_css' ); }
+```PHP
+// Enqueue style sheet. 
+add_action( 'wp_enqueue_scripts', 'register_styles' ); 
+/* Enqueue Register style sheet. */
+function register_styles() { 
+   // Register Plugin style 
+   wp_register_style( 'my-plugin', plugins_url( 'my-plugin/css/plugin.css' ) );
+   // Enqueue Style 
+   wp_enqueue_style( 'my-plugin' );
+   // Register them style 
+   wp_register_style( 'data_table_css', get_template_directory_uri() . '/css/jquery.dataTables.css' );
+   // Enqueue Style
+   wp_enqueue_style( 'data_table_css' );
+}
+```
 
 ### Enqueuing Scripts
 
@@ -129,7 +143,7 @@ Default: false
 
 **$in_footer**
 
-<span style="color: #000000">((bool) (Optional) Whether to enqueue the script before <body> instead of in the <head>. Default is 'false'.</span>
+((bool) (Optional) Whether to enqueue the script before `<body>` instead of in the `<head>`. Default is 'false'.
 
 Default: 'false'
 
@@ -139,11 +153,37 @@ Default: 'false'
 
 #### Example of Enqueue Script
 
-// Enqueue style sheet. add_action( 'wp_enqueue_scripts', 'enqueue_register_scripts' ); /** * Enqueue Register style sheet. */ function enqueue_register_scripts() { // Register Plugin Script wp_register_script('my_amazing_script', plugins_url('amazing_script.js', _FILE_), array('jquery'), '1.1', true); // Enqueue Style wp_enqueue_script('my_amazing_script'); // Register them style wp_register_script('data_table_js', get_template_directory_uri() . '/css/jquery.dataTables.css' ) // Enqueue Style wp_enqueue_script('data_table_js'); } You should call the function using the **wp_enqueue_scripts** action hook if you want to call it on the front-end of the site, like in the examples above. To call it on the administration screens, use the **admin_enqueue_scripts** action hook. For the login screen, use the **login_enqueue_scripts** action hook. Calling it outside of an action hook can lead to problems, see the ticket [#11526](https://core.trac.wordpress.org/ticket/11526) for details.
+```PHP
+// Enqueue style sheet.
+add_action( 'wp_enqueue_scripts', 'enqueue_register_scripts' );
+/* Enqueue Register style sheet. */
+function enqueue_register_scripts() {
+   // Register Plugin Script 
+   wp_register_script('my_amazing_script', plugins_url('amazing_script.js', _FILE_), array('jquery'), '1.1', true);
+   // Enqueue Style
+   wp_enqueue_script('my_amazing_script');
+   // Register them style
+   wp_register_script('data_table_js', get_template_directory_uri() . '/css/jquery.dataTables.css' );
+   // Enqueue Style
+   wp_enqueue_script('data_table_js');
+}
+```
+
+You should call the function using the **wp_enqueue_scripts** action hook if you want to call it on the front-end of the site, like in the examples above. To call it on the administration screens, use the **admin_enqueue_scripts** action hook. For the login screen, use the **login_enqueue_scripts** action hook. Calling it outside of an action hook can lead to problems, see the ticket [#11526](https://core.trac.wordpress.org/ticket/11526) for details.
 
 #### Example: Target a Specific Admin Page to load Scripts and Styles
 
-/** * Enqueue style sheet and scripts for the admin side. */ function my_enqueue($hook) { if ( 'edit.php' != $hook ) { return; } wp_register_script('my_custom_script', get_template_directory_uri() . '/myscript.js', array('jquery'), '1.1', true); wp_enqueue_script( 'my_custom_script'); wp_register_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/jcustom_admin_css.css' ); wp_enqueue_style( 'custom_wp_admin_css'); } add_action( 'admin_enqueue_scripts', 'my_enqueue' );
+```PHP
+/* Enqueue style sheet and scripts for the admin side. */
+function my_enqueue($hook) { 
+   if ( 'edit.php' != $hook ) { return; }
+   wp_register_script('my_custom_script', get_template_directory_uri() . '/myscript.js', array('jquery'), '1.1', true);
+   wp_enqueue_script( 'my_custom_script');
+   wp_register_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/jcustom_admin_css.css' );
+   wp_enqueue_style( 'custom_wp_admin_css');
+}
+add_action( 'admin_enqueue_scripts', 'my_enqueue' );
+```
 
 * * *
 
@@ -151,29 +191,29 @@ Default: 'false'
 
 Now you are able to Enqueue scripts and styles to add various them to your theme. Here are a few exercises that you can perform to explore and practice your techniques.
 
-1.  1.  1.  *   Register any plugin style and enqueue it on your theme.
-            *   Create some custom JavaScript and add it to your them.
-            *   Create a custom style to add on to the admin pages, and enqueue it.
-            *   <span style="color: #000000">Enqueue custom JavaScript when the user is logged in to your system.</span>
+*   Register any plugin style and enqueue it on your theme.
+*   Create some custom JavaScript and add it to your them.
+*   Create a custom style to add on to the admin pages, and enqueue it.
+*   Enqueue custom JavaScript when the user is logged in to your system.
 
 * * *
 
 ## Quiz
 
-### What should you use to enqueue scripts or style?
+**What should you use to enqueue scripts or style?**
 
 1.  Action Hook
 2.  Filter
 3.  CSS
 4.  JavaScript
 
-**Answer:** 1\. Action Hook
+**Answer:** 1. Action Hook
 
-### Which Action should you use to enqueue a script on the admin side.
+**Which Action should you use to enqueue a script on the admin side.**
 
 1.  login_enqueue_scripts
 2.  admin_enqueue_scripts
 3.  wp_enqueue_scripts
 4.  none
 
-**Answer:** 2\. admin_enqueue_scripts
+**Answer:** 2. admin_enqueue_scripts
