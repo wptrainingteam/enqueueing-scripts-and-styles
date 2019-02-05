@@ -194,7 +194,7 @@ Now you are able to Enqueue scripts and styles to add various them to your theme
 *   Register any plugin style and enqueue it on your theme.
 *   Create some custom JavaScript and add it to your them.
 *   Create a custom style to add on to the admin pages, and enqueue it.
-*   <span style="color: #000000">Enqueue custom JavaScript when the user is logged in to your system.</span>
+*   Enqueue custom JavaScript when the user is logged in to your system.
 
 * * *
 
